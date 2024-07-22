@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+    <div class="content-section">
+    <form method="POST" action="{% url 'add_ingredient' %}">
+            {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-sm mt-1 mb-1">Добавить ингредиент</button>
+    </form>
+    <form method="POST" action="{% url 'add_category' %}">
+            {% csrf_token %}
+        <button type="submit" class="btn btn-secondary btn-sm mt-1 mb-1">Добавить категорию</button>
+    </form>
+    <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'profile' %}">Вернуться в профиль</a>
+    </div>
+    </div>
+    <div class="content-section">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Заполните форму для публикации рецепта</legend>
+                {{ form.as_div }}
+
+            </fieldset>
+            <div class="form-group">
+                <br>
+                <button class="btn btn-outline-info" type="submit">Сохранить</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

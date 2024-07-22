@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Новый рецепт
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Подтвердите удаление рецепта</legend>
+      {{ form }}
+    </fieldset>
+    <div class="form-group py-3">
+      <input class="btn btn-outline-primary" type="submit" value="Подтвердить" />
+      <a class="btn btn-outline-primary" style="height: 43px; width: 110px; margin-left: 20px;" href="{% url 'profile' %}">Выход</a>
+    </div>
+  </form>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <article class="media content-section">
+      <div class="article-metadata">
+        {% if object.author == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'recipe_update' object.id %}">Редактировать</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'recipe_delete' object.id %}">Удалить</a>
+            <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'profile' %}">Вернуться в профиль</a>
+          </div>
+        {% endif %}
+      </div>
+      {% if recipe.photo %}
+            <p><img class="card-img-top" src="{{ recipe.photo.url }}" style="max-width: 150px; max-height: 150px"></p>
+          {% else %}
+            <p><img class="card-img-top" src="{% static 'default_pic.png' %}" style="max-width: 150px; max-height: 150px"></p>
+        {% endif %}
+      <h6 class="article-title">Название блюда:</h6><p>{{ object.title }}</p>
+      <h6 class="article-content">Описание блюда:</h6><p>{{ object.description }}</p>
+      <h6 class="article-content">Шаги приготовления:</h6><p>{{ object.steps_cooking }}</p>
+      <h6 class="article-content">Время приготовления:</h6><p>{{ object.time_for_cooking }} минут</p>
+      <div>
+      <h6>Необходимые ингредиенты:</h6>
+          {% if object.author == user %}
+          <form method="POST" action="{% url 'add_ingredient' %}">
+            {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-sm mt-1 mb-1">Добавить ингредиент</button>
+              {% endif %}
+    </form>
+       <table>
+           {% for item in object.ingredients.all %}
+         <tr>
+             <td style="padding:5px 10px 5px 10px;">{{ item.name }}</td>
+             <td style="padding:5px 10px 5px 10px;">{{ item.quantity }}</td>
+             <td style="padding:5px 10px 5px 10px;">{{ item.measure }}</td>
+             {% if object.author == user %}
+             <td>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'ingredient_update' item.pk %}">
+                    Редактировать ингредиент</a>
+             </td>
+             <td>
+                 <form method="POST" action="{% url 'ingredient_delete' object.id item.pk %}">
+                    {% csrf_token %}
+                <button class="btn btn-warning btn-sm mt-1 mb-1" type="submit"
+                        >
+                    Удалить ингредиент</button>
+                </form>
+                 {% endif %}
+             </td>
+
+
+         </tr>
+             {% endfor %}
+        </table>
+      </div>
+      <br>
+      <div>
+      <h6>Категории:</h6>
+      <table>
+      {% for item in object.categories.all %}
+          </tr>
+          <td>{{ item.name }}</td>
+
+          </tr>
+      {% endfor %}
+      </table>
+          <br>
+          <h6 class="article-content">Дата публикации:</h6><p>{{ object.created_at }} </p>
+          <h6 class="article-content">Дата последнего редактирования:</h6><p>{{ object.updated_at }} </p>
+    </div>
+  </article>
+{% endblock content %}
+
+
+
+

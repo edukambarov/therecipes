@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<form method="POST" action="{% url 'add_recipe' %}">
+            {% csrf_token %}
+    <button type="submit">Добавить новый рецепт</button>
+</form>
+<h4 class="mt-2 mb-2">Ваши рецепты: </h4>
+{% for recipe in recipes %}
+<div class="card mb-3">
+      <div class="card-body">
+        {% if recipe.photo %}
+            <p><img class="card-img-top" src="{{ recipe.photo.url }}" style="max-width: 100px; max-height: 100px"></p>
+          {% else %}
+            <p><img class="card-img-top" src="{% static 'default_pic.png' %}" style="max-width: 100px; max-height: 100px"></p>
+        {% endif %}
+        <h5 class="card-title">{{ recipe.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Автор: {{ recipe.author.username }}</h6>
+        <a href="{% url 'recipe_detail' recipe.pk %}" class="card-link" style="text-decoration: none;">Подробнее</a>
+
+      </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
