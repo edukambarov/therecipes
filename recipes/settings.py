@@ -100,10 +100,10 @@ WSGI_APPLICATION = 'recipes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gbrecipes$default',
-        'USER': 'gbrecipes',
+        'NAME': 'kea78$default',
+        'USER': 'kea78',
         'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-        'HOST': 'gbrecipes.mysql.pythonanywhere-services.com',
+        'HOST': 'kea78.mysql.pythonanywhere-services.com',
         'OPTIONS': {
             'init_command': "SET NAMES 'utf8mb4';SET sql_mode='STRICT_TRANS_TABLES'",
             'charset': 'utf8mb4',
