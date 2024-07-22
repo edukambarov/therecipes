@@ -34,7 +34,7 @@ CSRF_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1.',
-    'gbrecipes.pythonanywhere.com',
+    'kea78.pythonanywhere.com',
     '192.168.56.1',
     '192.168.0.155',
 ]
