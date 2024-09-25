@@ -110,13 +110,6 @@ class RecipeDetailView(DetailView):
     model = Recipe
     template_name = 'recipe_detail.html'
 
-# class IngredientCreateView(CreateView, LoginRequiredMixin):
-#     model = Ingredient
-#     fields = ['name', 'quantity_kg']
-#
-# class CategoryCreateView(CreateView, LoginRequiredMixin):
-#     model = Category
-#     fields = ['name']
 
 class RecipeDeleteView(DeleteView, LoginRequiredMixin):
     model = Recipe
@@ -172,12 +165,14 @@ def del_ingredient_from_recipe(request, id, pk):
         recipe.ingredients.remove(ingredient)
         recipe.save()
     return redirect('recipe_detail', id)
+    
 
-
-
-
-
-    # def test_func(self):
-    #     recipe = self.get_object()
-    #     return self.request.user == recipe.author
+@login_required
+def del_category_from_recipe(request, id, pk):
+    if request.method == 'POST':
+        recipe = Recipe.objects.filter(pk=id).first()
+        category = Category.objects.filter(pk=pk).first()
+        recipe.categories.remove(category)
+        recipe.save()
+    return redirect('recipe_detail', id)
 
